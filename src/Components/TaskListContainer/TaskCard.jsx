@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { TasksContext } from "../../Context/TasksContext";
 import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
 import EditTask from "./EditTask/EditTask";
-import { editState, deleteTask, tasks } from "./TaskListContainer";
 
 const TaskCard = ({task}) => {
+
+  const {editState, deleteTask} = useContext(TasksContext)
 
   const [modal, setModal] = useState(false)
   const [taskState, setTaskState] = useState(task !== undefined ? task.state : false)

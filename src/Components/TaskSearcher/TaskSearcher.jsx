@@ -1,7 +1,10 @@
-import React, {useRef} from "react";
+import React, {useRef, useContext} from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { TasksContext } from "../../Context/TasksContext";
 
-const TaskSearcher = ({allTasks, setMatch}) => {
+const TaskSearcher = () => {
+
+  const { tasks, setMatch } = useContext(TasksContext)
 
     let searchInput = useRef()
 
@@ -9,7 +12,7 @@ const TaskSearcher = ({allTasks, setMatch}) => {
         e.preventDefault();
         const search = searchInput.current.value;
         let matches = []
-        allTasks.forEach(task => {
+        tasks.forEach(task => {
             (task.title.toLowerCase().includes(search.toLowerCase()) || task.description.toLowerCase().includes(search.toLowerCase())) && matches.push(task)
         })
         setMatch(matches)

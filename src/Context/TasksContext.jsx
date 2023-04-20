@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const TasksContext = React.createContext([])
 
@@ -8,11 +8,14 @@ const TasksContextProvider = ({ children }) => {
 
   const [match, setMatch] = useState()
 
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState((localStorage.getItem("tasks") === JSON.parse(null)) ? [] : JSON.parse(localStorage.getItem("tasks")))
+
+  useEffect(() => localStorage.setItem("tasks", JSON.stringify(tasks)), [tasks])
 
   const editState = (id, state) => {
     const task = tasks.find(task => task.id === id)
     task.state = state;
+    editTask(task.id, task)
   }
 
   const deleteTask = id => setTasks(tasks.filter(task => task.id !== id))

@@ -8,42 +8,7 @@ const TasksContextProvider = ({ children }) => {
 
   const [match, setMatch] = useState()
 
-  const [tasks, setTasks] = useState([{
-    id: 1,
-    title: "Comprar leche",
-    description: "Comprar leche entera en el supermercado",
-    state: false,
-  },
-  {
-    id: 2,
-    title: "Llamar al doctor",
-    description: "Llamar al doctor para hacer una cita",
-    state: false,
-  },
-  {
-    id: 3,
-    title: "Pagar la factura del agua",
-    description: "Pagar la factura del agua en línea antes del 30 de marzo",
-    state: false,
-  },
-  {
-    id: 4,
-    title: "Lavar el coche",
-    description: "Lavar el coche en el auto-lavado local",
-    state: true,
-  },
-  {
-    id: 5,
-    title: "Ir al gimnasio",
-    description: "Ir al gimnasio para hacer una sesión de cardio",
-    state: false,
-  },
-  {
-    id: 6,
-    title: "Comprar un regalo de cumpleaños",
-    description: "Comprar un regalo de cumpleaños para mi amigo",
-    state: true,
-  }])
+  const [tasks, setTasks] = useState([])
 
   const editState = (id, state) => {
     const task = tasks.find(task => task.id === id)
@@ -53,13 +18,26 @@ const TasksContextProvider = ({ children }) => {
   const deleteTask = id => setTasks(tasks.filter(task => task.id !== id))
 
   const editTask = (id, changedTask) => {
-    deleteTask(id)
-    tasks.push(changedTask)
+    let copyTasks = [...tasks] // si no realizo la copia, no se re-renderiza taskListContainer y, por consecuencia, no aparece la tarea modificada
+    const oldTask = tasks.find(task => task.id === id)
+    const index = tasks.indexOf(oldTask)
+    copyTasks[index] = changedTask
+    setTasks(copyTasks)
   }
 
-  const addTask = (title, description, state) => {
-    const newTask = {title, description, state}
-    console.log(newTask)
+  const addTask = ({title, description, state}) => {
+
+    // Genero un id autoincrementable
+
+    let id;
+    id = tasks.length !== 0 ? tasks.length + 1 : 1
+
+    // Genero la tarea y la pusheo
+
+    const newTask = {id, title, description, state}
+    let copyTasks = [...tasks]
+    copyTasks.push(newTask)
+    setTasks(copyTasks)
   }
 
   return (

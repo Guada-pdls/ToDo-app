@@ -10,7 +10,7 @@ const TaskList = ({ tasks }) => {
           task={task}
         />
       ))}
-      {/* <TaskCard /> */}
+      <TaskCard task={{title: '', description: '', state: false }}/>
     </div>
   );
 };

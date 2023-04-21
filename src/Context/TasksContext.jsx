@@ -32,10 +32,9 @@ const TasksContextProvider = ({ children }) => {
 
     // Genero un id autoincrementable
 
-    let id;
-    id = tasks.length !== 0 ? tasks.length + 1 : 1
+    const id = tasks.length === 0 ? 1 : tasks[tasks.length - 1].id + 1 // Si tasks es un array vacio, id = 1, sino, toma el valor del id de la última tarea y le suma 1
 
-    // Genero la tarea y la pusheo
+    // Defino la tarea, la pusheo a la copia y la seteo a tasks
 
     const newTask = {id, title, description, state}
     let copyTasks = [...tasks]

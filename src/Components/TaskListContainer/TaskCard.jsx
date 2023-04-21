@@ -19,7 +19,7 @@ const TaskCard = ({task}) => {
     {task.id ? (
       <>
         <h4 className='font-semibold text-lg pt-3 pl-4 mb-2'>{task.title}</h4>
-        <p className='pl-4 h-16'>- {task.description}</p>
+        <p className='pl-4 h-16'>{task.description && "- " + task.description}</p>
         <footer className='flex items-center justify-between mt-4 py-4 border-t border-slate-400'>
           <button type="button" onClick={() => setTaskState(!taskState)} className={taskState ? "btn bg-green-400" : "btn bg-red-500"}>{taskState ? "Complete" : "Incomplete"}</button>
           <div className='flex items-center pr-4'>
